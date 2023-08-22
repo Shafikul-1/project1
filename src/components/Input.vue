@@ -37,6 +37,11 @@ function allSelect(){
   const outputTextarea = document.getElementById('outputTextarea');
   outputTextarea.select();
 }
+function copyAll(){
+  const outputTextarea = document.getElementById('outputTextarea');
+  outputTextarea.select();
+  document.execCommand('copy');
+}
 
 </script>
 
@@ -99,7 +104,7 @@ function allSelect(){
       <!--  -->
     <ul>
       <li @click="allSelect()" class="capitalize  font-bold text-md bg-black text-white my-2 py-1 pl-3 rounded hover:bg-green-600 transition-all cursor-pointer" id="outputArea">Select All</li>
-      <li class="capitalize  font-bold text-md bg-black text-white my-2 py-1 pl-3 rounded hover:bg-green-600 transition-all cursor-pointer">All Copy</li>
+      <li class="capitalize  font-bold text-md bg-black text-white my-2 py-1 pl-3 rounded hover:bg-green-600 transition-all cursor-pointer" @click="copyAll()">All Copy</li>
     </ul>
   </div>
 </div>
