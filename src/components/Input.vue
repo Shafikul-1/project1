@@ -1,10 +1,12 @@
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 
 const outputArea = ref('')
 const inputArea = ref('')
 const inputFeture = ref('')
 const inputValueSearch = ref('')
+
+//====================================
 // Sumnit Function
 function submitLi(){
   outputArea.value = inputArea.value
@@ -15,6 +17,7 @@ function resetLi (){
   inputArea.value = ''
 }
 
+//====================================
 //Number Remove Function
 function removeNumber(){
   const correctionValue = inputArea.value.replace(/\d/g, '')
@@ -25,11 +28,15 @@ function removeNumber(){
 function removeSymbol(){
   const correctionValue = inputArea.value.replace(/[^\w\s]/g, '')
   outputArea.value = correctionValue
-
   // /[^\w\s]|_/g, ''
 // /[^\w\s]/g, ''
 }
 
+//All Selected Function
+function allSelect(){
+  const outputTextarea = document.getElementById('outputTextarea');
+  outputTextarea.select();
+}
 
 </script>
 
@@ -74,7 +81,7 @@ function removeSymbol(){
   </div>
   <div class="bg-gray-300 w-1/3 mx-3 py-2 px-4 rounded-md md:my-3">
     <label for="outPut" class="font-bold text-2xl">Our Text Output Here</label>
-    <textarea @click="" v-model="outputArea" class="mt-3 w-full rounded-md focus:outline-none p-3" placeholder="Your Ouput" name="" id="" cols="" rows="10"></textarea>
+    <textarea v-model="outputArea" class="mt-3 w-full rounded-md focus:outline-none p-3" placeholder="Your Ouput" name="" id="outputTextarea" cols="" rows="10"></textarea>
   </div>
   <div class="bg-gray-300 w-1/3 mx-3 py-2 px-4 rounded-md md:my-3">
     <p>Feture Sec</p>
@@ -91,7 +98,7 @@ function removeSymbol(){
       </form> 
       <!--  -->
     <ul>
-      <li class="capitalize  font-bold text-md bg-black text-white my-2 py-1 pl-3 rounded hover:bg-green-600 transition-all cursor-pointer">Select All</li>
+      <li @click="allSelect()" class="capitalize  font-bold text-md bg-black text-white my-2 py-1 pl-3 rounded hover:bg-green-600 transition-all cursor-pointer" id="outputArea">Select All</li>
       <li class="capitalize  font-bold text-md bg-black text-white my-2 py-1 pl-3 rounded hover:bg-green-600 transition-all cursor-pointer">All Copy</li>
     </ul>
   </div>
