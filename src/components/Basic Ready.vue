@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 
 const outputArea = ref('')
 const inputArea = ref('')
@@ -9,67 +9,43 @@ let fastFetureInput = ref(false)
 let fastFetureOutput = ref(false)
 
 // Input Remove Call
-const options = reactive([
-  { id: 'symbol-checkbox', label: 'Remove Symbol', selected: false },
-  { id: 'number-checkbox', label: 'Remove Number', selected: false },
-  { id: 'text-checkbox', label: 'Remove Text', selected: false },
-  { id: 'other1-checkbox', label: 'Remove ...', selected: false },
-  { id: 'other2-checkbox', label: 'Remove ...', selected: false },
-  { id: 'other3-checkbox', label: 'Remove ...', selected: false },
-  { id: 'other4-checkbox', label: 'Remove ...', selected: false },
-  { id: 'other5-checkbox', label: 'Remove ...', selected: false },
-  { id: 'other6-checkbox', label: 'Remove ...', selected: false },
-  { id: 'other7-checkbox', label: 'Remove ...', selected: false },
-  { id: 'other8-checkbox', label: 'Remove ...', selected: false },
-  { id: 'other9-checkbox', label: 'Remove ...', selected: false },
-  { id: 'other10-checkbox', label: 'Remove ...', selected: false },
-  { id: 'other11-checkbox', label: 'Remove ...', selected: false },
-]);
-let showSelectValue = reactive([])
-
-//==================================== //Input Section
-// Input feture all hide and show 
-function featureHideInput(){
-  fastFetureInput.value = !fastFetureInput.value
-}
-
+const symbol = ref(false)
+const number = ref(false)
+const text = ref(false)
+const other2 = ref(false)
+const other3 = ref(false)
+const other4 = ref(false)
+ 
+//====================================
 // Sumnit Function
 function submitFn(){
   let result = inputArea.value;
 
-  for (const option of options) {
-    if (option.selected) {
-      if (option.label === 'Remove Symbol') {
-        result = result.replace(/[^\w\s]/g, '');
-      } else if (option.label === 'Remove Number') {
-        result = result.replace(/\d/g, '');
-      } else if (option.label === 'Remove Text') {
-        result = result.replace(/[a-zA-Z]/g, '');
-      }
-    }
+  if(symbol.value){
+    result = result.replace(/[^\w\s]/g, '') 
+  }
+  if(number.value){
+    result = result.replace(/\d/g, '') 
+  }
+  if(text.value){
+    result = result.replace(/[a-zA-Z]/g, '') 
+  }
+  if(other2.value){
+    result = result.replace(/\d/g, '')
+  }
+  if(other3.value){
+    result = result.replace(/\d/g, '')
+  }
+  if(other4.value){
+    result = result.replace(/\d/g, '')
   }
 
-  outputArea.value = result;
+  outputArea.value = result; 
 }
-// Update Instant Value Show Submit Opor
-function updateShowSelectValue(option) {
-  if (option.selected) {
-    showSelectValue.push(option.label);
-  } else {
-    const index = showSelectValue.indexOf(option.label);
-    if (index !== -1) {
-      showSelectValue.splice(index, 1);
-    }
-  }
-}
-
 // Reset Function
 function resetFn (){
   inputArea.value = ''
 }
-
-//==================================== // OutPut Section
-
 
 //All Selected Function
 function allSelect(){
@@ -81,6 +57,10 @@ function copyAll(){
   outputTextarea.select();
   document.execCommand('copy');
 }
+// Input feture all hide and show 
+ function featureHideInput(){
+  fastFetureInput.value = !fastFetureInput.value
+ }
 //Output  feture all hide and show 
 function featureHideOutput(){
   fastFetureOutput.value = !fastFetureOutput.value
@@ -101,9 +81,39 @@ function featureHideOutput(){
             <!-- All Teature Add -->
               <ul class=" w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                   <li class="cursor-pointer w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-                      <div class="flex items-center pl-3 " v-for="(option, index) in options" :key="index">
-                        <input :id="option.id" :value="option.label" type="checkbox" v-model="option.selected" @change="updateShowSelectValue(option)"  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
-                        <label :for="option.id"  class="capitalize w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ option.label }}</label>
+                      <div class="flex items-center pl-3 ">
+                          <input v-model="symbol" id="symbol-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                          <label for="symbol-checkbox" class="capitalize w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">remove symbol</label>
+                      </div>
+                  </li>
+                  <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                      <div class="flex items-center pl-3">
+                          <input v-model="number" id="number-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                          <label for="number-checkbox" class="capitalize w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">remove number</label>
+                      </div>
+                  </li>
+                  <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                      <div class="flex items-center pl-3">
+                          <input v-model="text" id="other1-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                          <label for="other1-checkbox" class="capitalize w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">remove text</label>
+                      </div>
+                  </li>
+                  <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                      <div class="flex items-center pl-3">
+                          <input v-model="other2" id="other2-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                          <label for="other2-checkbox" class="capitalize w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">remove ...</label>
+                      </div>
+                  </li>
+                  <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                      <div class="flex items-center pl-3">
+                          <input v-model="other3" id="other3-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                          <label for="other3-checkbox" class="capitalize w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">remove ...</label>
+                      </div>
+                  </li>
+                  <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                      <div class="flex items-center pl-3">
+                          <input v-model="other4" id="other4-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                          <label for="other4-checkbox" class="capitalize w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">remove ...</label>
                       </div>
                   </li>
               </ul>
@@ -122,13 +132,9 @@ function featureHideOutput(){
       <label for="input" class="font-bold text-2xl ">Input Your Text Here</label>
       <textarea v-model="inputArea" name="" id="" cols="" rows="10" placeholder="Enter Your Text " class="mt-3 w-full rounded-md focus:outline-none p-3"></textarea>
     </div>
-    <!-- Reset And Submit And Option Show -->
-    <div class="bg-gray-300 w-1/3 mx-3 py-2 px-4 rounded-md md:my-3">  
-      <!-- instant show select option -->
-      <ul class="h-[17rem] overflow-auto">
-        <li v-for="(showing, index) in showSelectValue" :key="index">{{ showing }}</li>
-      </ul>
-      <!-- Reset And Submit Button -->
+    
+    <div class="bg-gray-300 w-1/3 mx-3 py-2 px-4 rounded-md md:my-3"> 
+      <!-- Reset And Submit Function -->
       <ul class="flex flex-row gap-4">
         <li :name="inputFeture" @click="resetFn()" class="grow  capitalize  font-bold text-md bg-black text-white my-2 py-1 pl-3 rounded hover:bg-green-600 transition-all cursor-pointer">reset</li> 
         <li :name="inputFeture" @click="submitFn()" class="grow  capitalize  font-bold text-md bg-black text-white my-2 py-1 pl-3 rounded hover:bg-green-600 transition-all cursor-pointer">Submit</li>
@@ -136,10 +142,6 @@ function featureHideOutput(){
     </div>
   </div>
 </div>
-
-
-
-
 
 <!-- OutPut Section -->
 
